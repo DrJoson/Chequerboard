@@ -37,17 +37,38 @@ int main(){
 	// vertices, shaders, etc go here
 
 	GLfloat vertex_buffer[] = {
-	// vertices that will make up front of cube
-	-0.5f, -0.5f, -0.5f,  //0
-	-0.5f,  0.5f, -0.5f,  //1
-	 0.5f, -0.5f, -0.5f,  //2
-	 0.5f,  0.5f, -0.5f   //3
+	// vertices that make up front of cube
+	-0.5f, -0.5f,  0.5f,  //0
+	-0.5f,  0.5f,  0.5f,  //1
+	 0.5f, -0.5f,  0.5f,  //2
+	 0.5f,  0.5f,  0.5f   //3
+	// vertices that make up back of cube 
+	-0.5f, -0.5f, -0.5f,  //4
+	-0.5f,  0.5f, -0.5f,  //5
+	 0.5f, -0.5f, -0.5f,  //6
+	 0.5f,  0.5f, -0.5f   //7
 	};
 
-	GLuint element_buffer_length = 6;
+	GLuint element_buffer_length = 36;
 	GLuint element_buffer[]{
-	0,1,2, // indices that will make up a triangle
-	1,3,2  // indices that will make up a second triangle
+	// indices that make up front of cube
+	0,1,2,  
+	1,3,2,  
+	// indices that make up right of cube
+	3,2,6,
+	7,6,3,
+	// indices that make up left of cube
+	0,1,4,
+	5,4,1,
+	// indices that make up back of cube
+	4,5,6,
+	7,6,5,
+	// indices that make up bottom of cube
+	0,4,2,
+	2,6,4,
+	// indices that make up top of cube
+	1,5,3,
+	5,7,3
 	};
 
 	// vertex buffer object
@@ -56,7 +77,7 @@ int main(){
 	glGenBuffers(1,&vbo);
 	// bind the buffer and transfer data
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*12,vertex_buffer,GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*24,vertex_buffer,GL_STATIC_DRAW);
 	
 	// element buffer object
 	GLuint ebo = 0; 
